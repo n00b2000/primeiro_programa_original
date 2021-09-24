@@ -1,0 +1,478 @@
+<meta charset="UTF-8">
+
+
+<script>
+
+//Funções
+
+function puleLinha() {
+        document.write("<br><hr><br>");
+}
+
+
+function mostra(texto){
+                document.write("<big><big>" + texto + "</big></big>");
+                puleLinha();
+        }
+
+function introduzir(vez){
+
+        function porMesEmPT(m){
+
+                function retornar(){
+
+                        if (m === "janeiro"|| m === "jan" || m === "Jan" || m === "Janeiro" || m === "JANEIRO" || m === "JAN") {return 1;}
+                        if (m === "fevereiro"|| m === "fev" || m === "Fev" || m === "Fevereiro" || m === "FEVEREIRO" || m === "FEV") {return 2;}
+                        if (m === "março"|| m === "mar" || m === "Mar" || m === "Março" || m === "MARÇO" || m === "MAR") {return 3;};
+                        if (m === "abril"|| m === "abr" || m === "Abr" || m === "Abril" || m === "ABR" || m === "ABRIL") {return 4;};
+                        if (m === "maio"|| m === "Maio" || m === "MAIO") {return 5;};
+                        if (m === "junho"|| m === "jun" || m === "Jun" || m === "Junho" || m === "JUN" || m === "JUNHO") {return 6;};
+                        if (m === "julho"|| m === "jul" || m === "Jul" || m === "Julho" || m === "JUL" || m === "JULHO") {return 7;};
+                        if (m === "agosto"|| m === "ago" || m === "Ago" || m === "Agosto" || m === "AGO" || m === "AGOSTO") {return 8;};
+                        if (m === "setembro"|| m === "set" || m === "Set" || m === "Setembro" || m === "SET" || m === "SETEMBRO") {return 9;}
+                        if (m === "outubro"|| m === "out" || m === "Out" || m === "Outubro" || m === "OUT" || m === "OUTUBRO") {return 10;}
+                        if (m === "novembro"|| m === "nov" || m === "Nov" || m === "Novembro" || m === "NOV" || m === "NOVEMBRO") {return 11}
+                        if (m === "dezembro"|| m === "dez" || m === "Dez" || m === "Dezembro" || m === "DEZ" || m === "DEZEMBRO") {return 12;}
+                }
+
+                var check = retornar();
+
+                if (typeof check === "undefined"){
+
+                        return m;
+                }else{
+
+                        return check;
+                }
+        }       
+
+
+        function perguntar(data,modo,pergunta) {
+
+                var diaLimit = 31;
+                var mudarString = false;
+                var diminuirDiaLimit = false;
+
+                function definir(x,coacao) {
+
+
+                        function corrigirDiaOuMesOuAno() {
+
+                                let diaY = undefined;
+                                let mesY = undefined;
+                                let anoY = undefined;
+ 
+                                function especificarERedefinir(){
+
+                                        let resposta = "";
+                                        let stringAfirmacao = "Não existe dia " + diaY[1] + " do mês " + mesY[1] + ".";
+                                        let stringPergunta = "Você quer alterar o mês ou o dia?";
+                                        let datasStrings = ["mês","mes","Mês","MÊS","Mes","MES","dia","Dia","DIA"];
+
+                                        if (mudarString){
+
+                                                stringAfirmacao = "Não existe a data " + diaY[1] + "/" + mesY[1] + "/" + anoY[1] + ".";
+                                                stringPergunta = "Você quer alterar o dia, o mês ou o ano?"
+                                                datasStrings.push("ano");
+                                                datasStrings.push("Ano");
+                                                datasStrings.push("ANO");
+                                        }
+
+                                        alert(stringAfirmacao);
+                                        let repeticao = true;
+                                        while (repeticao) {
+
+                                                resposta = prompt(stringPergunta);
+
+                                                for (let posicao = 0; posicao < datasStrings.length; posicao++){
+
+                                                        if (resposta === datasStrings[posicao]){
+
+                                                                repeticao = false;
+                                                                break;
+                                                        }
+                                                }
+                                        }
+                                        if (resposta === "mês" || resposta === "mes" || resposta === "Mês" || resposta === "Mes" || resposta === "MÊS" || resposta === "MES"){
+
+                                                modo = 1;
+                                                definir(mesY,"Qual é o mês?");
+
+                                        }else{
+
+                                                modo = 0;
+                                                if (resposta === "dia" || resposta === "Dia" || resposta === "DIA"){
+
+                                                        definir(diaY,"Qual é o dia?");
+                                                }
+                                                if (resposta === "ano" || resposta === "ano" || resposta === "ANO"){
+
+
+                                                        definir(anoY,"Qual é o ano?");
+                                                        
+                                                }
+                                        }
+                                }
+
+                                if (modo == 1){
+
+                                        if (x === mes){
+
+                                                diaY = dia;
+                                                mesY = mes;
+                                                anoY = ano;
+                                        }
+                                        if (x === mesNasceuNovo){
+
+                                                diaY = diaNasceuNovo;
+                                                mesY = mesNasceuNovo;
+                                                anoY = anoNasceuNovo;
+                                        }
+
+                                        if(   (  (2*(Math.round(mesY[1]/2)) == mesY[1]) && (mesY[1] > 0) && (mesY[1] <= 7)  ) || (  (2*(Math.round(mesY[1]/2)) != mesY[1]) && (mesY[1] > 7) && (mesY[1] <= 12)  )   ){
+
+                                                if (x[1] == 2){
+
+                                                        if (diminuirDiaLimit){
+
+                                                                diaLimit = 28;
+                                                        }else{
+                                                        
+                                                                diaLimit = 29;
+                                                        }
+                                                }else{
+
+                                                        diaLimit = 30;
+                                                }
+
+                                                if (diaY[1] > diaLimit){
+
+                                                        especificarERedefinir();
+                                                }
+                                        }
+                                }
+
+                                if (  (x === ano || x === anoNasceuNovo) && (! (isNaN(x[1])) )  ){
+
+                                        if (x === ano){
+
+                                                diaY = dia;
+                                                mesY = mes;
+                                                anoY = ano;
+                                        }
+                                        if (x === anoNasceuNovo){
+
+                                                diaY = diaNasceuNovo;
+                                                mesY = mesNasceuNovo;
+                                                anoY = anoNasceuNovo;
+                                        }
+                                        if (mesY[1] == 2){
+
+                                                let divisivelPor4 = (4*(Math.round(anoY[1]/4)) == anoY[1]) && ( 2*(Math.round(anoY[1]/2)) == anoY[1]);
+                                                let naoSoDivisivelPor100 = (! (Math.round(anoY[1]/100) == anoY[1]/100 ) );
+                                                let divisivelPor400 = ( 2*(Math.round((anoY[1]/100)/2)) == anoY[1]/100) && (4*(Math.round((anoY[1]/100)/4)) == anoY[1]/100);
+
+                                                if(!  (divisivelPor4 && (naoSoDivisivelPor100 || divisivelPor400))  ) {
+
+                                                        diaLimit = 28;
+                                                        diminuirDiaLimit = true;
+                                                        if (diaY[1] > diaLimit){
+
+                                                                mudarString = true;
+                                                                especificarERedefinir();
+                                                        }
+                                                }
+                                        }
+                                }
+                        }
+
+                        function limitar(){
+
+                                var string = "";
+                                var limitMax = Number.MAX_VALUE * 2;
+                                var limitMin = 0;
+
+                                if (x === dia || x === diaNasceuNovo){
+
+                                        string = "número de dia";
+                                        limitMax = diaLimit;
+                                        limitMin = 1;
+                                }
+
+                                if (modo === 1){
+
+                                        string = "número de mês";
+                                        limitMax = 12;
+                                        limitMin = 1;
+                                }
+                                if (x === ano){
+
+                                        string = "ano";
+                                        limitMin = ano0;
+                                }
+
+                                if (!   (  (x[1] >= limitMin && x[1] <= limitMax) || (isNaN(x[1]))  )   ){
+
+                                        definir(x,"Insira um " + string + " válido...");
+                                }
+                        }
+
+                        x[0] = prompt(coacao);
+                        if (modo === 1){x[0] = porMesEmPT(x[0]);}
+                        x[1] = parseInt(x[0]);
+
+                        limitar();
+                        corrigirDiaOuMesOuAno();
+                        console.log(x);
+                }
+
+        definir(data,pergunta);              //A função perguntar() começa aqui!
+
+        }
+        if (vez !== 2){
+
+                perguntar(dia,0,"Em que dia estamos?");
+                perguntar(mes,1,"E o mês?");
+                perguntar(ano,0,"Ano?");
+        }
+        nomeNovo = prompt("Agora. Qual é seu nome?");
+        perguntar(diaNasceuNovo,0,"Qual é o dia do seu nascimento?");
+        perguntar(mesNasceuNovo,1,"Mês?");
+        perguntar(anoNasceuNovo,0,"Por fim, o ano em que você nasceu?");
+        alert("...");
+        
+}
+
+function determinarTudo(modo){
+
+        function determinar(x,x0){
+
+                if (! (isNaN(x[1])) ){
+
+                        return x[1];
+                }else{
+
+                        return x0;
+                }
+        }
+
+        anoDeterminado = determinar(ano,ano0)
+        mesDeterminado = determinar(mes,mes0);
+        diaDeterminado = determinar(dia,dia0);
+}
+
+function adicionarPessoa(){
+
+        var coacao = "";
+
+        function novaPessoa(){
+
+                function corrigindoBugDoAnoNasceuNovo(){
+                        
+                        if(isNaN(anoNasceuNovo[1])){
+
+                                return false;
+                        } else {
+
+                                return true;
+                        }
+                }
+
+
+                function corrigirIdade(){
+
+                        if (  ( (mesNasceuNovo[1] <= mesDeterminado) && (diaNasceuNovo[1] <= diaDeterminado) ) || (! (mesNasceuNovo[1] >= mesDeterminado) )  ) {
+
+                                return 0;       
+                        } else {
+
+                                return 1;
+                        }
+                }
+
+
+                function novoEscreva(nomeNovo,idade){
+
+                        if (  (isNaN(anoNasceuNovo[1])) || (isNaN(diaNasceuNovo[1]))  ) {
+
+                                mostra("Seu nome é " + nomeNovo + " e você é um(a) retardado/retardada.");
+                        }else{
+
+                                if (  (idade < 0)  ){
+
+                                        mostra("Aqui está você: " + nomeNovo + " tem " + idade + " anos. Viajou no tempo né?");
+                                }
+                                if (  (idade == 0)  ){
+
+                                        pessoas.push(nomeNovo + " tem 0 anos. Bem vindo ao mundo!");
+                                        mostra("Aqui está você: " + pessoas[(pessoas.length - 1)]);
+                                }
+                                if (  (idade >= 140 )  ) {
+
+                                        mostra("Ou, " + nomeNovo + "! Você já deveria ter virado história com esses seus " + idade + " de idade.");
+                                }else{
+                                        if (  (! (idade <= 0) )  ) {
+
+                                                pessoas.push(nomeNovo + " tem "+ idade + " anos.");
+                                                mostra("Aqui está você: " + pessoas[(pessoas.length - 1)]);
+                                        }
+                                }
+                        }
+
+                }
+
+                if (nomeNovo && anoNasceuNovo[0] && mesNasceuNovo[0] && diaNasceuNovo[0] && ano[0] && mes[0] && dia[0] !== null){
+
+                        if (corrigindoBugDoAnoNasceuNovo()){
+
+                                var idade = anoDeterminado - anoNasceuNovo[1] - corrigirIdade();
+                        }else{
+
+                                var idade = 0;
+                        }
+                        novoEscreva(nomeNovo,idade);
+                        let sentence = (! ( (isNaN(anoNasceuNovo[1])) || (isNaN(diaNasceuNovo[1])) )  );
+                        if (   (!  ( (idade < 0) || (idade >= 140 ) )  ) && sentence   ){
+
+                                resultado += idade;
+                                divisor ++;
+                        }else{
+
+                                if (sentence){
+
+                                        coacao = " (a sua não vale)"
+                                }
+                        }
+
+                }
+        }
+
+        function pessoaAleatoria(nomeAleatorio,p){
+
+                var jogoDeDados = 0;
+                while(jogoDeDados == 0){
+
+                        jogoDeDados = Math.round(Math.random()*100);
+                }
+                console.log("jogoDeDados = " + jogoDeDados);
+
+                if ( jogoDeDados <= chance ) {
+
+                        function escrevaAleatorio(idadeAleatoria){
+
+                                if (  (idadeAleatoria < 0)  ){
+
+                                        return "O viajante do tempo " + nomeAleatorio + " de "+ idadeAleatoria + " anos veio te dar um oi.";
+                                }
+                                if (  (idadeAleatoria == 0)  ){
+
+                                        return "O recém nascido " + nomeAleatorio + " de "+ idadeAleatoria + " anos veio te dar um oi. Bem vindo ao mundo " + nomeAleatorio + "!";
+                                }
+                                if (  (! (idadeAleatoria <= 0) )  ) {
+
+                                        return nomeAleatorio + " de "+ idadeAleatoria + " anos veio te dar um oi.";
+                                }
+                        }
+
+                        var anoNasceu = (Math.round(Math.random()*100)) + (anoDeterminado - 90);
+                        var idadeAleatoria = anoDeterminado - anoNasceu;
+                        stringAleatorio = escrevaAleatorio(idadeAleatoria);
+                        resultado += idadeAleatoria;
+                        divisor ++;
+                        posicaoAleatoria = Math.round(Math.random()*(pessoas.length - 1));
+                        chance = 0;
+                        console.log(anoNasceu);
+                }
+                if (typeof stringAleatorio === "undefined"){
+
+                        posicaoAleatoria = pessoas.length;
+                }
+                if (p == posicaoAleatoria){
+
+                        mostra(stringAleatorio);
+                }    
+        }
+
+        function pessoasAntigas(){
+
+                for (var posicao = 0; posicao < pessoas.length; posicao++){
+
+                        pessoaAleatoria("Fulano",posicao);
+                        mostra(pessoas[posicao]);
+                }
+        }
+
+        function mostraMedia(){
+
+                if (divisor != 0){
+
+                        media = resultado/divisor
+                        document.write("<big><big><h1>A média das idades é " + Math.round(media) + coacao + ".</h1></big></big>");
+                }else{
+
+                        document.write("<big><big><h1>Não existe média de idades sem pessoas (pelos menos aquelas que tenham uma idade de verdade).</h1></big></big>");
+                }
+        }
+
+        function fazerButton(){
+
+                document.write("<button>Clique aqui para adicionar uma nova pessoa</button>");
+                button = document.querySelector("button");
+                button.onclick = adicionarPessoa;
+        }
+
+        if (typeof pessoas[0] === "undefined"){
+
+                introduzir();
+                determinarTudo();
+                document.open(); //abri
+                novaPessoa();
+                fazerButton();
+                mostraMedia();
+                document.close(); //fecha
+
+        }else{
+
+                introduzir(2);
+                document.open(); //abri  
+                pessoasAntigas();
+                novaPessoa();
+                fazerButton();
+                media = resultado/divisor
+                document.write("<big><big><h1>A média das idades é " + Math.round(media) + coacao + ".</h1></big></big>");
+                document.close(); //fecha
+        }
+}
+
+
+//Variáveis
+var resultado = 0; 
+var divisor = 0; 
+var media = 0;
+var dia0 = 2;
+var mes0 = 8;
+var ano0 = 2021;
+var nomeNovo = null;   //será alterado quando a função "introdução()" tocar
+var dia = [];   //será alterado quando a função "introdução()" tocar
+var mes = [];   //será alterado quando a função "introdução()" tocar
+var ano = [];   //será alterado quando a função "introdução()" tocar
+var diaNasceuNovo = [];   //será alterado quando a função "introdução()" tocar
+var mesNasceuNovo = [];   //será alterado quando a função "introdução()" tocar
+var anoNasceuNovo = [];   //será alterado quando a função "introdução()" tocar
+var diaDeterminado = 0;   //alterado qnd determinarTudo() tocar. Para estes dois em seguida tbm.
+var mesDeterminado = 0;
+var anoDeterminado = 0;
+var pessoas = [];
+var button = null;
+var stringAleatorio =  undefined;
+var posicaoAleatoria = undefined;
+var chance = 2;
+
+//Texto
+
+    alert("Olá. Isso aqui é uma atividade/pesquisa que estou fazendo para melhor programar no futuro.");
+    alert("Então, se você quiser me ajudar com isso, responda as perguntas que irão aparecer, mas caso procure não partipar, aperte o botão cancelar");
+
+    adicionarPessoa();
+    
+</script>
